@@ -1,36 +1,35 @@
-ansible-supervisord
+ansible-backup-snapshot
 =========
 
-This role will install supervisord and let you configure programs with yaml
+This role will install cron to snapshot ec2 instances
 
 Role Variables
 --------------
 
-**supervisord_config_location**
+**backup_snapshots**
 
-   The path where goes the configuration for each program
-
-   default: ``/etc/supervisord/conf.d/``
-
-**supervisord_programs**
-
-   This variable should contains all programs that runs with supervisord
+   This variable should contains all crons
    Example :
 
-    supervisord_programs:
-      lisa-api:
-        program_name: "lisa-api"
-        user: "alivelisa"
-        command: "/home/alivelisa/.virtualenvs/lisa-api/bin/python /home/alivelisa/.virtualenvs/lisa-api/local/bin/lisa-api-cli runserver 0.0.0.0:8000"
-        autostart: "true"
-        autorestart: "true"
-        redirect_stderr: "true"
-        stdout_logfile: /var/log/supervisor/lisa-api.log
-        stderr_logfile: /var/log/supervisor/lisa-api.log
-        stopasgroup: "true"
-        killasgroup: "true"
+    backup_snapshots:
+      mongodb:
+        tags:
+          role: database
+          Name: MONGODB0
+        instances:
+          - i-ad0fcc4b
+          - i-56489db2
+        dry_run: false
+        autoscaling_limit: 1
+        root_device: true
+        delete_only: false
+        cold_snapshot: false
+        retention:
+          number: 2
+          type: w
+        cron: "30 2 * * *"
    
-   default: ``[]``
+   default: ``{}``
 
 Example Playbook
 ----------------
@@ -38,7 +37,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: cycloid.supervisord }
+         - { role: cycloid.backup-snapshot }
 
 License
 -------
