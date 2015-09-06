@@ -19,7 +19,7 @@
 
 - name: Ensure /etc/cron.d exists
   file:
-    path: /etc/cron.d/mistio-collectd
+    path: /etc/cron.d/
     state: directory
     mode: 0755
 
