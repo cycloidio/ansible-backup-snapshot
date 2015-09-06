@@ -1,2 +1,3 @@
 ---
+backup_credentials_file: /home/admin/.aws/credentials
 backup_snapshots: {}

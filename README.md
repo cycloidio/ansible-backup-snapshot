@@ -28,6 +28,7 @@ Role Variables
           number: 2
           type: w
         cron: "30 2 * * *"
+        region: eu-west-1
    
    default: ``{}``
 
