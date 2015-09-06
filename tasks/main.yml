@@ -1,0 +1,28 @@
+---
+# tasks file for ansible-backup-snapshot
+
+- name: Install pip | Ubuntu / Debian | Install
+  apt:
+    name: '{{ item }}'
+    cache_valid_time: 3600
+    update_cache: yes
+    state: latest
+  with_items:
+    - python-pip
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Install ec2snap
+  pip:
+    name: ec2snap
+    state: latest
+
+
+- name: Ensure /etc/cron.d exists
+  file:
+    path: /etc/cron.d/mistio-collectd
+    state: directory
+    mode: 0755
+
+- name: Installing backup cron
+  template: src=cron.j2 dest=/etc/cron.d/aws_backup
+  with_dict: backup_snapshots

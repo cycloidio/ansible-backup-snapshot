@@ -1,0 +1,18 @@
+---
+backup_snapshots:
+  mongodb:
+    tags:
+      role: database
+      Name: MONGODB0
+    instances:
+      - i-ad0fcc4b
+      - i-56489db2
+    dry_run: false
+    autoscaling_limit: 1
+    root_device: true
+    delete_only: false
+    cold_snapshot: false
+    retention:
+      number: 2
+      type: w
+    cron: "30 2 * * *"

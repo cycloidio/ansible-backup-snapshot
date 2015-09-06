@@ -1,0 +1,8 @@
+---
+galaxy_info:
+  author: julien.syx@cycloid.io
+  description:
+  company: cycloid.io
+  license: cycloid.io
+  min_ansible_version: 1.9
+dependencies: []
