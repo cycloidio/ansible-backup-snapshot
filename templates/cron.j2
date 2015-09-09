@@ -1,3 +1,5 @@
 # {{ ansible_managed }}
-# {{ item.key }}
-{{ item.value.cron }}  /usr/local/bin/ec2snap {% if item.value.tags %}{% for key, value in item.value.tags.iteritems()  %} -t {{ key }} '{{ value }}'{% endfor %}{% endif %}{% if item.value.instances %}{% for instance in item.value.instances  %} -i {{ instance }}{% endfor %}{% endif %}{% if not item.value.dry_run %} -u {% endif %}{% if item.value.autoscaling_limit %} -l {{ item.value.autoscaling_limit }}{% endif %}{% if not item.value.root_device %} -o {% endif %}{% if item.value.delete_only %} -n {% endif %}{% if item.value.retention %} -g {{ item.value.retention['number'] }} {{ item.value.retention['type'] }}{% endif %} -r {{ item.value.region }} -c {{ backup_credentials_file }}
+{% for (item_key, item_value) in backup_snapshots.iteritems() %}
+# {{ item_key }}
+{{ item_value.cron }}  /usr/local/bin/ec2snap {% if item_value.tags %}{% for key, value in item_value.tags.iteritems()  %} -t {{ key }} '{{ value }}'{% endfor %}{% endif %}{% if item_value.instances %}{% for instance in item_value.instances  %} -i {{ instance }}{% endfor %}{% endif %}{% if not item_value.dry_run %} -u {% endif %}{% if item_value.autoscaling_limit %} -l {{ item_value.autoscaling_limit }}{% endif %}{% if not item_value.root_device %} -o {% endif %}{% if item_value.delete_only %} -n {% endif %}{% if item_value.retention %} -g {{ item_value.retention['number'] }} {{ item_value.retention['type'] }}{% endif %} -r {{ item_value.region }} -c {{ backup_credentials_file }}
+{% endfor %}
