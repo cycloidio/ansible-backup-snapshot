@@ -16,12 +16,14 @@
     name: ec2snap
     state: latest
 
-
 - name: Ensure /etc/cron.d exists
   file:
     path: /etc/cron.d/
     state: directory
     mode: 0755
+
+- name: Ensure admin user exist
+  user: name=admin
 
 - name: Installing backup cron
   template: src=cron.j2 dest=/etc/cron.d/aws_backup mode=0600 owner=admin group=crontab
