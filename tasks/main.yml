@@ -25,5 +25,8 @@
 - name: Ensure admin user exist
   user: name=admin
 
+- name: Ensure crontab group exist
+  group: name=crontab
+
 - name: Installing backup cron
   template: src=cron.j2 dest=/etc/cron.d/aws_backup mode=0600 owner=admin group=crontab
