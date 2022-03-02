@@ -3,12 +3,12 @@
 
 - name: Install pip | Ubuntu / Debian | Install
   apt:
-    name: '{{ item }}'
+    name: "{{ item }}"
     cache_valid_time: 3600
     update_cache: yes
     state: latest
   with_items:
-    - python-pip
+    - python3-pip
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Install ec2snap
